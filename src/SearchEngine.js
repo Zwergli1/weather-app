@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "./Weather.css";
 import axios from "axios";
 
 export default function SearchEngine() {
@@ -29,15 +30,28 @@ export default function SearchEngine() {
   }
 
   let form = (
-    <form onSubmit={handleSubmit}>
-      <input type="search" placeholder="Enter a city.." onChange={updateCity} />
-      <button type="Submit">Search</button>
+    <form onSubmit={handleSubmit} className="Weather">
+      <div className="row">
+        <div className="col-9">
+          <input
+            type="search"
+            placeholder="Enter a city..."
+            onChange={updateCity}
+            className="form-control"
+          />
+        </div>
+        <div className="col-3">
+          <button type="Submit" className="btn btn-primary">
+            Search
+          </button>
+        </div>
+      </div>
     </form>
   );
 
   if (loaded) {
     return (
-      <div>
+      <div className="Weather">
         {form}
         <ul>
           <li>Temperature: {Math.round(weather.temperature)}°C</li>
