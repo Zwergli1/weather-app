@@ -1,27 +1,31 @@
 import React, { useState } from "react";
 import "./Weather.css";
+import FormattedDate from "./FormattedDate";
+import WeatherInfo from "./WeatherInfo";
 import axios from "axios";
 
 export default function SearchEngine() {
-  let [city, setCity] = useState("");
-  let [loaded, setLoaded] = useState(false);
-  let [weather, setWeather] = useState({});
+  const [city, setCity] = useState("");
+  const [loaded, setLoaded] = useState(false);
+  const [weather, setWeather] = useState({});
 
   function displayWeather(response) {
     setLoaded(true);
     setWeather({
-      temperature: response.data.main.temp,
+      city: response.city,
+      temperature: response.data.temperature.current,
       wind: response.data.wind.speed,
-      humidity: response.data.main.humidity,
-      icon: `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`,
-      description: response.data.weather[0].description,
+      humidity: response.data.temperature.humidity,
+      icon: response.data.condition.url,
+      description: response.data.condition.description,
+      date: new Date(response.data.time * 1000),
     });
   }
 
   function handleSubmit(event) {
     event.preventDefault();
-    let apiKey = "34ae1065362d42545661451bda2b8a1f";
-    let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+    let apiKey = "c945b1b3a38a7ed39dtf309fbc9oc934";
+    let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}`;
     axios.get(apiUrl).then(displayWeather);
   }
 
@@ -53,11 +57,17 @@ export default function SearchEngine() {
     return (
       <div className="Weather">
         {form}
+        <WeatherInfo />
         <ul>
+          <li>
+            <FormattedDate date={weather.date} />
+          </li>
           <li>Temperature: {Math.round(weather.temperature)}°C</li>
-          <li>Description: {weather.description}</li>
-          <li>Humidity: {weather.humidity}%</li>
-          <li>Wind: {weather.wind}km/h</li>
+          <li className="text-capitalize">
+            Description: {weather.description}
+          </li>
+          <li>Humidity: {weather.humidity} %</li>
+          <li>Wind: {Math.round(weather.wind)} km/h</li>
           <li>
             <img src={weather.icon} alt={weather.description} />
           </li>
