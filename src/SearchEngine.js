@@ -19,6 +19,7 @@ export default function SearchEngine() {
       icon: response.data.condition.url,
       description: response.data.condition.description,
       date: new Date(response.data.time * 1000),
+      iconUrl: `http://shecodes-assets.s3.amazonaws.com/api/weather/icons/${response.data.condition.icon}.png`,
     });
   }
 
