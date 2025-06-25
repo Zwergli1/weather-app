@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import WeatherInfo from "./WeatherInfo";
-import WeatherForecast from "./WeatherForecast";
+import WeatherTemperature from "./WeatherTemperature";
+import WeatherIcon from "./WeatherIcon";
+
 import axios from "axios";
 import "./Weather.css";
 
@@ -14,7 +16,7 @@ export default function Weather(props) {
       coordinates: response.data.coord,
       temperature: response.data.temperature.current,
       humidity: response.data.temperature.humidity,
-      date: new Date(response.data.dt * 1000),
+      date: new Date(response.data.time * 1000),
       description: response.data.condition.description,
       icon: response.data.condition.url,
       wind: response.data.wind.speed,
@@ -61,7 +63,6 @@ export default function Weather(props) {
           </div>
         </form>
         <WeatherInfo data={weatherData} />
-        <WeatherForecast coordinates={weatherData.coordinates} />
       </div>
     );
   } else {
