@@ -1,5 +1,9 @@
 import React from "react";
 
 export default function WeatherIcon(props) {
-  return <div>{props.data.iconUrl}</div>;
+  return (
+    <div>
+      <img src={props.data.iconUrl} alt="Weather icon"></img>
+    </div>
+  );
 }

@@ -3,6 +3,7 @@ import "./Weather.css";
 import FormattedDate from "./FormattedDate";
 import WeatherInfo from "./WeatherInfo";
 import axios from "axios";
+import WeatherIcon from "./WeatherIcon";
 
 export default function SearchEngine() {
   const [city, setCity] = useState("");
@@ -16,10 +17,10 @@ export default function SearchEngine() {
       temperature: response.data.temperature.current,
       wind: response.data.wind.speed,
       humidity: response.data.temperature.humidity,
-      icon: response.data.condition.url,
+      icon: response.data.condition.icon,
       description: response.data.condition.description,
       date: new Date(response.data.time * 1000),
-      iconUrl: `http://shecodes-assets.s3.amazonaws.com/api/weather/icons/${response.data.condition.icon}.png`,
+      iconUrl: `http://shecodes-assets.s3.amazonaws.com/api/weather/icons/${icon}.png`,
     });
   }
 
@@ -70,7 +71,7 @@ export default function SearchEngine() {
           <li>Humidity: {weather.humidity} %</li>
           <li>Wind: {Math.round(weather.wind)} km/h</li>
           <li>
-            <img src={weather.icon} alt={weather.description} />
+            <WeatherIcon />
           </li>
         </ul>
       </div>
