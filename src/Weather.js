@@ -21,7 +21,6 @@ export default function Weather(props) {
       iconUrl: `http://shecodes-assets.s3.amazonaws.com/api/weather/icons/${response.data.condition.icon}.png`,
       wind: response.data.wind.speed,
       city: response.data.city,
-      coordinates: response.data.coordinates,
     });
   }
 
